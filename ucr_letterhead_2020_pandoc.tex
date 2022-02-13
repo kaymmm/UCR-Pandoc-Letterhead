@@ -193,6 +193,16 @@ $if(left-align)$\usepackage{ragged2e}$endif$
 \let\envbegin\begin
 \let\envend\end
 
+% Section/Chapter headings
+\usepackage[raggedright]{titlesec}
+\titleformat{\section}[block]{\normalfont\bfseries$if(sansbody)$\sffamily$endif$}{\thesection}{}{}
+\titlespacing*{\section}{0em}{1em}{0.7em}
+\titleformat{\subsection}[block]{\normalfont\itshape$if(sansbody)$\sffamily$endif$}{thesubsection}{}{}
+\titlespacing*{\subsection}{0em}{0.7em}{0.3em}
+\titleformat{\subsubsection}{\normalfont\itshape$if(sansbody)$\sffamily$endif$}{\thesubsubsection}{}{}
+\titlespacing*{\subsubsection}{0em}{0.7em}{0.3em}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
 \usepackage{xcolor}
 \definecolor{UCRnavy}{RGB}{$if(address-rgb)$$for(address-rgb)$$address-rgb$$sep$,$endfor$$else$45, 108, 192$endif$}
 % \definecolor{UCRnavy}{RGB}{14,76,146}  % Flip's remix
@@ -212,16 +222,6 @@ $else$
 $endif$
 }
 \urlstyle{same}  % disable monospaced font for URLs
-
-% Section/Chapter headings
-\usepackage[raggedright]{titlesec}
-\titleformat{\section}[block]{\normalfont\bfseries$if(sansbody)$\sffamily$endif$}{\thesection}{}{}
-\titlespacing*{\section}{0em}{1em}{0.7em}
-\titleformat{\subsection}[block]{\normalfont\itshape$if(sansbody)$\sffamily$endif$}{thesubsection}{}{}
-\titlespacing*{\subsection}{0em}{0.7em}{0.3em}
-\titleformat{\subsubsection}{\normalfont\itshape$if(sansbody)$\sffamily$endif$}{\thesubsubsection}{}{}
-\titlespacing*{\subsubsection}{0em}{0.7em}{0.3em}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 
 % Page geometry setup
 % Style of the plain page:
