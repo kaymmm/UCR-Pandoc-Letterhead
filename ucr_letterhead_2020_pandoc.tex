@@ -1,0 +1,397 @@
+% Based on the UCR VISUAL IDENTITY BRAND GUIDELINES
+% Developed by Flip Tanedo, who takes no responsibility 
+% for how you use this.
+% Modified by Keith Miyake for use with Pandoc
+
+% REQUIRED:
+% * Pandoc w/XeLaTeX or LuaLaTeX ("LaTeX + Font Support")
+% * Rift font: https://www.dafontfree.io/download/rift/
+% * Fira Sans font (Google Fonts)
+
+% Mandatory or recommended (*optional) pandoc parameters:
+%   author
+%   position (title)
+%   department
+%   recipient* (array; each line of recipient inside address)
+%   secondary-style* (bool; use secondary version letterhead)
+%   signature-image
+%   address* (array; each line of address)
+%   phone*
+%   email*
+%   website*
+%   lang* (probably helpful for hyphenation)
+%
+% Optional*:
+%   date
+%   indent (bool)
+%   left-align (bool; otherwise justify)
+%   gray-seal (bool; use gray watermark instead of yellow)
+%   address-rgb (list/array of 3 RGB values 0-255 to use for header/footer text)
+%   Custom Fonts: (must include options for size, letter spacing, etc. if specified)
+%   * headerfont (font name, suggested Rift [default] or Oswald)
+%   * footerfont (font name, suggested Rift [default] or Oswald)
+%   * sansfont (font name, Fira Sans is default)
+%   * mainfont (font name, EB Garamond is default)
+%   sansbody (bool) [use sans font for body]
+%   Most of the other standard Pandoc options
+% TO-DO:
+% * Adjust positionings to use papersize
+% * Pull in other Pandoc options where useful, e.g., CJK fonts
+
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode,hyperfootnotes=false$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+$if(colorlinks)$
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+$endif$
+%
+\documentclass[
+$if(papersize)$
+$papersize$paper,
+$else$
+letterpaper,
+$endif$,
+11pt,
+oneside$if(classoption)$,$endif$
+$for(classoption)$
+$classoption$$sep$,
+$endfor$
+]{article}
+
+\usepackage{iftex}
+\usepackage{setspace}
+\usepackage{graphicx}
+\onehalfspacing
+\usepackage{parskip}
+
+% Fonts
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$else$
+\usepackage{lmodern}
+$endif$
+\usepackage{fontspec}
+\usepackage{calculator}
+\DIVIDE{$if(fontsize)$$fontsize$$else$10$endif$}{11}{\mfscale}
+\DIVIDE{9.5}{11}{\hfscale}
+\DIVIDE{9.5}{11}{\ffscale}
+\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+$if(mainfont)$
+\setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
+$else$
+\setmainfont[Scale=\mfscale]{EB Garamond}
+$endif$
+$if(sansfont)$
+\setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
+$else$
+\setsansfont[Scale=\mfscale]{Fira Sans}
+$endif$
+$if(monofont)$
+\setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]{$monofont$}
+$endif$
+$if(footerfont)$
+\newfontfamily\UCRFooter[
+  $for(footerfontoptions)$$footerfontoptions$$sep$,$endfor$
+]{$footerfont$}
+$else$
+\IfFontExistsTF{Rift}{%
+\newfontfamily\UCRFooter[
+  LetterSpace=20,
+  Scale=\ffscale
+]{Rift}%
+}{%
+\newfontfamily\UCRFooter[
+  LetterSpace=20,
+  Scale=\ffscale
+]{Oswald}%
+}
+$endif$
+$if(headerfont)$
+\newfontfamily\UCRHeader[
+  $for(headerfontoptions)$$headerfontoptions$$sep$,$endfor$
+]{$headerfont$}
+\newfontfamily\UCRHeaderBold[
+  $for(headerfontoptions)$$headerfontoptions$,$endfor$
+  UprightFont={* Bold}
+]{$headerfont$}
+$else$
+\IfFontExistsTF{Rift}{%
+\newfontfamily\UCRHeader[
+  LetterSpace=2.17,
+  Scale=\hfscale
+]{Rift}%
+}{%
+\newfontfamily\UCRHeader[
+  LetterSpace=2.17,
+  Scale=\hfscale
+]{Oswald}%
+}
+\IfFontExistsTF{Rift}{%
+\newfontfamily\UCRHeaderBold[
+  LetterSpace=2.17,
+  UprightFont={* Bold},
+  Scale=\hfscale
+]{Rift}%
+}{%
+\newfontfamily\UCRHeaderBold[
+  LetterSpace=2.17,
+  UprightFont={* Bold},
+  Scale=\hfscale
+]{Oswald}%
+}
+$endif$
+
+$if(zero-width-non-joiner)$
+%% Support for zero-width non-joiner characters.
+\makeatletter
+\def\zerowidthnonjoiner{%
+  % Prevent ligatures and adjust kerning, but still support hyphenating.
+  \texorpdfstring{%
+    \textormath{\nobreak\discretionary{-}{}{\kern.03em}%
+      \ifvmode\else\nobreak\hskip\z@skip\fi}{}%
+  }{}%
+}
+\makeatother
+\catcode`^^^^200c=\active
+\protected\def ^^^^200c{\zerowidthnonjoiner}
+%% End of ZWNJ support
+$endif$
+
+% Language setup
+$if(lang)$
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{$babel-lang$}
+$for(babel-otherlangs)$
+\babelprovide[import]{$babel-otherlangs$}
+$endfor$
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+$endif$
+
+$if(indent)$
+\setlength{\parindent}{0.25in}
+\setlength{\parskip}{0.8em}
+$else$
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.3em}
+$endif$
+
+$if(lang)$
+\ifLuaTeX
+  \usepackage[bidi=basic]{babel}
+\else
+  \usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{$babel-lang$}
+$for(babel-otherlangs)$
+\babelprovide[import]{$babel-otherlangs$}
+$endfor$
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+$endif$
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+$if(left-align)$\usepackage{ragged2e}$endif$
+
+% Magical environment begin and end statements to circumvent the way Pandoc
+% typically handles environments by skipping the Markdown parser
+\let\envbegin\begin
+\let\envend\end
+
+\usepackage{xcolor}
+\definecolor{UCRnavy}{RGB}{$if(address-rgb)$$for(address-rgb)$$address-rgb$$sep$,$endfor$$else$45, 108, 192$endif$}
+% \definecolor{UCRnavy}{RGB}{14,76,146}  % Flip's remix
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{}  % add URL line breaks if available
+\usepackage{hyperref}
+\hypersetup{
+  breaklinks=true,
+$if(colorlinks)$
+  colorlinks=true,
+  filecolor={$if(filecolor)$$filecolor$$else$UCRnavy$endif$},
+  citecolor={$if(citecolor)$$citecolor$$else$UCRnavy$endif$},
+  urlcolor={$if(urlcolor)$$urlcolor$$else$UCRnavy$endif$},
+  hypertexnames=false
+$else$
+  hidelinks
+$endif$
+}
+\urlstyle{same}  % disable monospaced font for URLs
+
+% Section/Chapter headings
+\usepackage[raggedright]{titlesec}
+\titleformat{\section}[block]{\normalfont\bfseries$if(sansbody)$\sffamily$endif$}{\thesection}{}{}
+\titlespacing*{\section}{0em}{1em}{0.7em}
+\titleformat{\subsection}[block]{\normalfont\itshape$if(sansbody)$\sffamily$endif$}{thesubsection}{}{}
+\titlespacing*{\subsection}{0em}{0.7em}{0.3em}
+\titleformat{\subsubsection}{\normalfont\itshape$if(sansbody)$\sffamily$endif$}{\thesubsubsection}{}{}
+\titlespacing*{\subsubsection}{0em}{0.7em}{0.3em}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+% Page geometry setup
+% Style of the plain page:
+\usepackage[
+  top=1in,
+  bottom=$if(secondary-style)$1in$else$1.25in$endif$,
+  left=1in,
+  right=1in,
+  footskip=.875in
+]{geometry} 
+% PAGE LAYOUT HACKS, tex.stackexchange: 325926
+\usepackage{afterpage}
+
+$if(listings)$
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
+\lstset{defaultdialect=[5.3]Lua}
+\lstset{defaultdialect=[x86masm]Assembler}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+\usepackage[firstpage]{draftwatermark} % for 1st page watermark
+\SetWatermarkAngle{0}
+\SetWatermarkText{\includegraphics[width=\paperwidth]{
+  ucr_seal_$if(gray-seal)$gray$else$yellow$endif$.pdf
+}}
+
+% Separator used in header based on primary or secondary layout style
+\newcommand{\hdrsep}{$if(secondary-style)$, $else$\\$endif$}
+
+\usepackage{fancyhdr}
+% All sizes assume letter, fix it later
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{13.6pt}
+
+\fancypagestyle{defaultheader}{
+  \fancyhead[L]{}
+  \fancyhead[C]{}
+  \fancyhead[R]{}
+}
+
+\fancypagestyle{firstheader}{
+  \fancyhead[L]{}
+  \fancyhead[C]{
+    % Logo
+    \begin{textblock*}{2.78in}%
+      $if(secondary-style)$[0.5,0]$endif$%
+      ($if(secondary-style)$4.25in, 0.625in$else$0.84in, 0.75in$endif$)
+      \includegraphics[height=0.85in, width=2.78in]{ucrlogo.pdf}
+    \end{textblock*}
+  }
+  \fancyhead[R]{
+    % Header address
+    \begin{textblock*}$if(secondary-style)${8.5in}(0in, 1.625in)$else${2in}(5.8in, 0.9in)$endif$
+      \setstretch{0.95}  % 1.2 space for 9.5 pt
+      $if(secondary-style)$\begin{center}$endif$%
+      \textcolor{UCRnavy}{
+        $if(department)$\UCRHeaderBold{$department$\hdrsep{}}$endif$
+        \UCRHeader{
+          $if(address)$$for(address)$$address$$sep$\hdrsep{}$endfor$$else$%
+          900 University Avenue\hdrsep{}Riverside, CA 92521$endif$%
+        }
+      }
+      $if(secondary-style)$\end{center}$endif$%
+    \end{textblock*}
+  }
+}
+
+\fancyfoot[C]{
+  % Footer graphics
+  $if(secondary-style)$
+  $else$
+  \begin{textblock*}{8.5in}[0,1](0in, 11in)
+    \includegraphics[height=1.1in,width=8.5in]{footerbgshort.pdf}
+  \end{textblock*}
+  $endif$
+  % Footer text
+  % Use email instead of Fax since nobody uses fax anymore
+  \begin{textblock*}{8.5in}(0in, $if(secondary-style)$10.4in$else$10.6in$endif$)
+    \UCRFooter
+    \textcolor{UCRnavy}{
+      \textbf{%
+        $if(website)$
+        \href{$website$}{$website$}%
+        $else$
+        \href{UCR.EDU}{https://ucr.edu}%
+        $endif$
+        \quad\textbullet\quad%
+        TEL: $if(phone)$$phone$$else$(951) 825–1012$endif$%
+        $if(email)$\quad\textbullet\quad%
+        EMAIL: \href{mailto:$email$}{$email$}$endif$
+      }
+    }
+  \end{textblock*}
+}
+
+\usepackage[absolute]{textpos}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\begin{document}
+
+% Style of the firsr page:
+$if(secondary-style)$
+\newgeometry{top=2.25in, bottom=1in, left=1in, right=1in}
+$else$
+\newgeometry{top=2in, bottom=1.25in, left=1in, right=1in}
+$endif$
+\afterpage{\aftergroup\restoregeometry}
+
+\thispagestyle{firstheader}  % first page is in this style
+\pagestyle{defaultheader}  % subsequent pages in theis style
+
+$if(left-align)$\RaggedRight$endif$
+
+% Main text within the page margins
+
+$if(sansbody)$
+\sffamily
+$endif$
+
+% Today's date
+$if(indent)$\noindent$endif$
+$if(date)$$date$$else$\today$endif$
+\smallskip
+
+% Inside Address
+$if(recipient)$
+$if(indent)$\noindent$endif$
+$for(recipient)$$recipient$$sep$\\$endfor$
+\par
+$endif$
+
+\smallskip
+
+% Body text of your Pandoc document
+$if(indent)$\noindent$endif$  % hopefully it captures the greeting
+$body$
+
+% Valediction and Signature
+\bigskip
+\hspace{.5\textwidth}
+\begin{minipage}[]{5in}
+  $if(valediction)$$valediction$$else$Sincerely$endif$,\par
+  \includegraphics[height=3\baselineskip]{$if(signature-image)$$signature-image$$else$Signature.pdf$endif$}\par
+  \singlespace
+  $author$\par
+  $position$\par
+  $department$\par
+\end{minipage}
+
+\end{document}
