@@ -6,6 +6,8 @@ Based on the UCR Visual Identity Guidelines 2020
 
 Forked from the homie Flip Tanedo <https://github.com/fliptanedo/UCR-XeLaTeX-Letterhead-2020>
 
+Demo: [Test Letter PDF](https://github.com/kaymmm/UCR-Pandoc-Letterhead/blob/master/test_letter.pdf)
+
 ## Requirements
 
 * Rift font: https://www.dafontfree.io/download/rift/
