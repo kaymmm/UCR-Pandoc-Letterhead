@@ -79,12 +79,12 @@ $endif$
 $if(mainfont)$
 \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $else$
-\setmainfont[Scale=\mfscale]{EB Garamond}
+\setmainfont[Scale=\mfscale, BoldFont={* Bold}]{EB Garamond}
 $endif$
 $if(sansfont)$
 \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
 $else$
-\setsansfont[Scale=\mfscale]{Fira Sans}
+\setsansfont[Scale=\mfscale, BoldFont={* Bold}]{Fira Sans}
 $endif$
 $if(monofont)$
 \setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]{$monofont$}
@@ -108,36 +108,22 @@ $else$
 $endif$
 $if(headerfont)$
 \newfontfamily\UCRHeader[
-  $for(headerfontoptions)$$headerfontoptions$$sep$,$endfor$
-]{$headerfont$}
-\newfontfamily\UCRHeaderBold[
   $for(headerfontoptions)$$headerfontoptions$,$endfor$
-  UprightFont={* Bold}
+  BoldFont={* Bold}
 ]{$headerfont$}
 $else$
-\IfFontExistsTF{Rift}{%
+\IfFontExistsTF{Rift}{
 \newfontfamily\UCRHeader[
   LetterSpace=2.17,
-  Scale=\hfscale
-]{Rift}%
-}{%
+  Scale=\hfscale,
+  BoldFont={* Bold}
+]{Rift}
+}{
 \newfontfamily\UCRHeader[
   LetterSpace=2.17,
-  Scale=\hfscale
-]{Oswald}%
-}
-\IfFontExistsTF{Rift}{%
-\newfontfamily\UCRHeaderBold[
-  LetterSpace=2.17,
-  UprightFont={* Bold},
-  Scale=\hfscale
-]{Rift}%
-}{%
-\newfontfamily\UCRHeaderBold[
-  LetterSpace=2.17,
-  UprightFont={* Bold},
-  Scale=\hfscale
-]{Oswald}%
+  Scale=\hfscale,
+  BoldFont={* Bold}
+]{Oswald}
 }
 $endif$
 
@@ -298,7 +284,7 @@ $endif$
       \setstretch{0.95}  % 1.2 space for 9.5 pt
       $if(secondary-style)$\begin{center}$endif$%
       \textcolor{UCRnavy}{
-        $if(department)$\UCRHeaderBold{$department$\hdrsep{}}$endif$
+        $if(department)$\UCRHeader{\bfseries{}$department$\hdrsep{}}$endif$
         \UCRHeader{
           $if(address)$$for(address)$$address$$sep$\hdrsep{}$endfor$$else$%
           900 University Avenue\hdrsep{}Riverside, CA 92521$endif$%
@@ -322,7 +308,7 @@ $endif$
   \begin{textblock*}{8.5in}(0in, $if(secondary-style)$10.4in$else$10.6in$endif$)
     \UCRFooter
     \textcolor{UCRnavy}{
-      \textbf{%
+      \bfseries{%
         $if(website)$
         \href{$website$}{$website$}%
         $else$
