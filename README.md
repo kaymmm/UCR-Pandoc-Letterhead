@@ -59,12 +59,12 @@ Optional Pandoc parameters:
 
 ## TO-DO:
 
-* Adjust positionings to use papersize
-* Pull in other Pandoc options where useful, e.g., CJK fonts
-* More options for indenting and spacing
-  - indent after section heading
-  - linespacing
-  - fontspacing
+* [ ] Adjust positionings to use papersize
+* [ ] Pull in other Pandoc options where useful, e.g., CJK fonts
+* [ ] Greater flexibility with line and font spacing
+* [ ] Adjustable indents, including first paragraph after section heading
+* [ ] Testing across the board
+* [ ] Pull out extraneous stuff pulled in from Pandoc
 
 
 ## Disclaimer

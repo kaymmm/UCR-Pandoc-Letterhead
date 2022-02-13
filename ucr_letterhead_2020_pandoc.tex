@@ -2,42 +2,51 @@
 % Developed by Flip Tanedo, who takes no responsibility 
 % for how you use this.
 % Modified by Keith Miyake for use with Pandoc
-
+%
+% Version: v0.1.1
+%
 % REQUIRED:
-% * Pandoc w/XeLaTeX or LuaLaTeX ("LaTeX + Font Support")
+% * Pandoc w/XeLaTeX or LuaLaTeX
 % * Rift font: https://www.dafontfree.io/download/rift/
-% * Fira Sans font (Google Fonts)
-
+% * EB Garamond font (Google Fonts)
+% * Fira Sans font (optional and fallback) (Google Fonts)
+% * Oswald font (optional and fallback) (Google Fonts)
+%
 % Mandatory or recommended (*optional) pandoc parameters:
-%   author
-%   position (title)
-%   department
-%   recipient* (array; each line of recipient inside address)
-%   secondary-style* (bool; use secondary version letterhead)
-%   signature-image
-%   address* (array; each line of address)
-%   phone*
-%   email*
-%   website*
-%   lang* (probably helpful for hyphenation)
+% * author
+% * position (title)
+% * department
+% * recipient* (array; each line of recipient inside address)
+% * secondary-style* (bool; use secondary version letterhead)
+% * signature-image
+% * address* (array; each line of address)
+% * phone*
+% * email*
+% * website*
+% * lang* (probably helpful for hyphenation)
 %
 % Optional*:
-%   date
-%   indent (bool)
-%   left-align (bool; otherwise justify)
-%   gray-seal (bool; use gray watermark instead of yellow)
-%   address-rgb (list/array of 3 RGB values 0-255 to use for header/footer text)
-%   Custom Fonts: (must include options for size, letter spacing, etc. if specified)
-%   * headerfont (font name, suggested Rift [default] or Oswald)
-%   * footerfont (font name, suggested Rift [default] or Oswald)
-%   * sansfont (font name, Fira Sans is default)
-%   * mainfont (font name, EB Garamond is default)
-%   sansbody (bool) [use sans font for body]
-%   fallback-fonts (list of fonts to fallback to when a glyph is missing)
-%   Most of the other standard Pandoc options
+% * date
+% * indent (bool)
+% * left-align (bool; otherwise justify)
+% * gray-seal (bool; use gray watermark instead of yellow)
+% * address-rgb (list/array of 3 RGB values 0-255 to use for header/footer text)
+% * Custom Fonts: (must include options for size, letter spacing, etc. if specified)
+%   - headerfont (font name, suggested Rift [default] or Oswald)
+%   - footerfont (font name, suggested Rift [default] or Oswald)
+%   - sansfont (font name, Fira Sans is default)
+%   - mainfont (font name, EB Garamond is default)
+% * sansbody (bool) [use sans font for body]
+% * fallback-fonts (list of fonts to fallback to when a glyph is missing)
+% * Most of the other standard Pandoc options
+%
 % TO-DO:
-% * Adjust positionings to use papersize
-% * Pull in other Pandoc options where useful, e.g., CJK fonts
+% - [ ] Adjust positionings to use papersize
+% - [ ] Pull in other Pandoc options where useful, e.g., CJK fonts
+% - [ ] Greater flexibility with line and font spacing
+% - [ ] Testing across the board
+% - [ ] Better Pandoc option support
+% - [ ] Pull out extraneous stuff pulled in from Pandoc
 
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode,hyperfootnotes=false$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
