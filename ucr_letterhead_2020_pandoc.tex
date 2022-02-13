@@ -33,6 +33,7 @@
 %   * sansfont (font name, Fira Sans is default)
 %   * mainfont (font name, EB Garamond is default)
 %   sansbody (bool) [use sans font for body]
+%   fallback-fonts (list of fonts to fallback to when a glyph is missing)
 %   Most of the other standard Pandoc options
 % TO-DO:
 % * Adjust positionings to use papersize
@@ -65,6 +66,19 @@ $endfor$
 \usepackage{parskip}
 
 % Fonts
+
+% fallback fonts if using LuaLaTeX
+$if(fallback-fonts)$
+\ifluatex
+\directlua
+{luaotfload.add_fallback
+("myfallback",
+{$for(fallback-fonts)$"$fallback-fonts$:mode=harf;"$sep$, $endfor$}
+)
+}
+\fi
+$endif$
+
 $if(fontfamily)$
 \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $else$
@@ -75,7 +89,9 @@ $endif$
 \DIVIDE{$if(fontsize)$$fontsize$$else$10$endif$}{11}{\mfscale}
 \DIVIDE{9.5}{11}{\hfscale}
 \DIVIDE{9.5}{11}{\ffscale}
-\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\defaultfontfeatures[\rmfamily]{%
+  Ligatures=TeX%
+  $if(fallback-fonts)$,RawFeature={fallback=myfallback}$endif$}
 $if(mainfont)$
 \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $else$
@@ -145,7 +161,7 @@ $endif$
 
 % Language setup
 $if(lang)$
-\ifLuaTeX
+\ifluatex
 \usepackage[bidi=basic]{babel}
 \else
 \usepackage[bidi=default]{babel}
@@ -168,7 +184,7 @@ $else$
 $endif$
 
 $if(lang)$
-\ifLuaTeX
+\ifluatex
   \usepackage[bidi=basic]{babel}
 \else
   \usepackage[bidi=default]{babel}
@@ -182,7 +198,7 @@ $endfor$
 \def\languageshorthands#1{}
 $endif$
 
-\ifLuaTeX
+\ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
