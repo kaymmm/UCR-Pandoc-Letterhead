@@ -21,21 +21,30 @@ indent: false
 left-align: false
 lang: en
 colorlinks: true
+fallback-fonts:
+  - DejaVu Sans
+  - Noto Sans CJK JP
+  - Noto Sans Myanmar
+  - Noto Color Emoji
+  - Noto Sans Symbols
 header-includes:
   - \usepackage{lipsum}
+  - \usepackage{metalogo}
 ---
 
 Dear Fellowship Committee:
 
-I recommend this person. They are rad. Here are some ligatures
+I recommend this person. They are rad.
+
+Here are some extended characters in \LuaLaTeX:  မြန်မာ emanɥɛl Mācron Hawaiʻi (╯°□°)╯︵ ┻━┻ 💩
 
 \lipsum[1-2]
 
 # Section
 
-This section discusses their research. No indent after section titles.
+This section discusses their research. If indent is enabled, no indent after section titles.
 
-Subsequent paragraphs are indented.
+If indent is enabled, subsequent paragraphs are indented.
 
 ## Subsection
 
