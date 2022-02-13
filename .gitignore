@@ -1,0 +1,4 @@
+*.log
+*.out
+*.aux
+test_letter.tex
